@@ -1,0 +1,20 @@
+{
+  "name": "zk-campus-passport-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.2.0",
+    "@tanstack/react-query": "^5.56.0",
+    "ethers": "^6.13.4",
+    "next": "^15.5.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "viem": "^2.21.1",
+    "wagmi": "^2.12.7"
+  }
+}

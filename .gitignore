@@ -1,0 +1,6 @@
+node_modules/
+.next/
+target/
+proofs/
+.env
+.DS_Store
