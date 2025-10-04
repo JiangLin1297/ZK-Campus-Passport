@@ -1,14 +1,14 @@
 // frontend/components/EventCard.js
 export default function EventCard({ event }) {
-    return (
-        <div style={{ border: '1px solid #ddd', margin: '1rem', padding: '1rem' }}>
-            <h3>{event.title}</h3>
-            <p>{event.desc}</p>
-            {event.registered ? (
-                <button disabled>ÒÑ±¨Ãû</button>
-            ) : (
-                <button>±¨Ãû</button>
-            )}
-        </div>
-    );
+  return (
+    <div style={{ border: '1px solid #ddd', margin: '1rem', padding: '1rem' }}>
+      <h3>{event.title}</h3>
+      <p>{event.desc}</p>
+      {event.registered ? (
+        <button disabled>å·²æŠ¥å</button>
+      ) : (
+        <button>æŠ¥å</button>
+      )}
+    </div>
+  );
 }

@@ -1,24 +1,21 @@
 ﻿// frontend/pages/organizer.js
+import Layout from '../components/Layout';
+
 export default function Organizer() {
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h2>🏆 Organizer Panel</h2>
-      <form>
-        <h3>Create New Event</h3>
-        <input placeholder="Event Title" /><br />
-        <textarea placeholder="Description" /><br />
-        <button type="submit">Create Event</button>
-      </form>
-
-      <hr />
-
-      <form>
-        <h3>Submit Results</h3>
-        <input placeholder="Event ID" /><br />
-        <input placeholder="Student Wallet" /><br />
-        <input placeholder="Result / Proof Hash" /><br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
+    return (
+        <Layout>
+            <h1>🏆 主办方入口</h1>
+            <p>赛事主办方可以在这里发布比赛、管理报名、上传成绩。</p>
+            <button style={{
+                padding: '8px 16px',
+                background: '#0070f3',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer'
+            }}>
+                发布新赛事
+            </button>
+        </Layout>
+    );
 }

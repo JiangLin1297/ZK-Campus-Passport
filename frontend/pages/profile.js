@@ -1,16 +1,16 @@
 ﻿// frontend/pages/profile.js
-import ProfileCard from '../components/ProfileCard';
+import Layout from '../components/Layout';
 
 export default function Profile() {
-    const mockResults = [
-        { event: 'Hackathon 2025', result: '🥇 冠军', proof: '0xabc...' },
-        { event: '数学建模大赛', result: '入围', proof: '0xdef...' },
-    ];
-
     return (
-        <div style={{ padding: '2rem' }}>
-            <h2>🎓 My ZK Passport</h2>
-            {mockResults.map((r, i) => <ProfileCard key={i} result={r} />)}
-        </div>
+        <Layout>
+            <h1>👤 我的档案</h1>
+            <p>在这里展示你的跨赛事、跨社团的信誉与成绩。</p>
+            <ul>
+                <li>Hackathon 2025 优秀奖</li>
+                <li>数学建模竞赛 国家级二等奖</li>
+                <li>校园志愿活动 120 小时</li>
+            </ul>
+        </Layout>
     );
 }
