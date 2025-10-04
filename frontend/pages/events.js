@@ -1,56 +1,56 @@
-﻿import { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import { useAccount } from 'wagmi';
+﻿import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Events() {
-    const [events, setEvents] = useState([]);
-    const { address, isConnected } = useAccount();
+  const [events, setEvents] = useState([]);
 
-    useEffect(() => {
-        fetch('/api/events')
-            .then(res => res.json())
-            .then(setEvents);
-    }, []);
+  useEffect(() => {
+    fetch("/api/events")
+      .then((res) => res.json())
+      .then((data) => setEvents(data));
+  }, []);
 
-    const handleRegister = async (eventId) => {
-        if (!isConnected) {
-            alert("请先连接钱包！");
-            return;
-        }
+  return (
+    <div>
+      <Navbar />
+      <main className="max-w-6xl mx-auto px-6 py-20">
+        <h1 className="text-4xl font-bold mb-10 text-center">📅 校园赛事广场</h1>
 
-        const res = await fetch('/api/events', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ eventId, wallet: address })
-        });
-
-        if (res.ok) {
-            alert("✅ 报名成功！");
-            const updated = await res.json();
-            setEvents(events.map(e => e.id === updated.id ? updated : e));
-        } else {
-            alert("❌ 报名失败");
-        }
-    };
-
-    return (
-        <Layout>
-            <h1>📅 赛事列表</h1>
-            <ul>
-                {events.map(event => (
-                    <li key={event.id} style={{ marginBottom: '12px' }}>
-                        <strong>{event.name}</strong> - {event.date} - {event.location} - 状态: {event.status}
-                        {isConnected && event.status === "报名中" && (
-                            <button
-                                style={{ marginLeft: '10px' }}
-                                onClick={() => handleRegister(event.id)}
-                            >
-                                报名
-                            </button>
-                        )}
-                    </li>
-                ))}
-            </ul>
-        </Layout>
-    );
+        {events.length === 0 ? (
+          <p className="text-center text-gray-500">正在加载赛事...</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {events.map((event) => (
+              <div
+                key={event.id}
+                className="bg-white shadow-md rounded-lg p-6 hover:shadow-xl transition"
+              >
+                <h2 className="text-xl font-semibold text-blue-600 mb-2">
+                  {event.name}
+                </h2>
+                <p className="text-gray-600">📍 {event.location}</p>
+                <p className="text-gray-600">🗓 {event.date}</p>
+                <p
+                  className={`mt-2 font-medium ${
+                    event.status === "报名中"
+                      ? "text-green-600"
+                      : event.status === "即将开始"
+                      ? "text-orange-600"
+                      : "text-gray-400"
+                  }`}
+                >
+                  状态: {event.status}
+                </p>
+                <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                  报名参加
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+      <Footer />
+    </div>
+  );
 }
