@@ -102,9 +102,9 @@ export default function Home() {
                         imageUrl="/club-activities.jpg"
                     />
                     <UseCaseCard
-                        title="志愿活动"
-                        description="记录志愿时长和表现，为奖学金申请提供支持"
-                        imageUrl="/volunteer-activities.jpg"
+                        title="人才市场"
+                        description="通过展示自己的各项能力，在就业招聘中快人一步"
+                        imageUrl="/job-seeking.jpg"
                     />
                 </div>
             </section>
@@ -305,44 +305,53 @@ export default function Home() {
           border-top: 1px solid #333;
         }
 
+        /*  primary按钮：hover时背景色加深，无位移，自然阴影 */
         .primary-btn {
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           padding: 0.8rem 1.8rem;
           background-color: #0070f3;
           color: white;
           text-decoration: none;
           border-radius: 6px;
           font-weight: 600;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease; /* 更柔和的过渡 */
           border: none;
           cursor: pointer;
           font-size: 1rem;
+          box-shadow: 0 2px 4px rgba(0, 112, 243, 0.2); /* 初始浅阴影 */
         }
 
         .primary-btn:hover {
-          background-color: #0051aa;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
+          background-color: #0058cc; /* 比原hover色更深，更显沉稳 */
+          box-shadow: 0 4px 8px rgba(0, 112, 243, 0.3); /* hover时阴影稍重 */
+          /* 移除translateY，保持按钮稳定 */
         }
 
+        /* secondary按钮：hover时背景色加深、边框色同步加深 */
         .secondary-btn {
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           padding: 0.8rem 1.8rem;
           background-color: white;
           color: #0070f3;
           text-decoration: none;
           border-radius: 6px;
           font-weight: 600;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
           border: 1px solid #0070f3;
           cursor: pointer;
           font-size: 1rem;
+          box-shadow: 0 2px 4px rgba(0, 112, 243, 0.08);
         }
 
         .secondary-btn:hover {
-          background-color: #f0f7ff;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 112, 243, 0.15);
+          background-color: #e6f0ff; /* 比原hover色更深，更明显 */
+          border-color: #0058cc; /* 边框同步加深，视觉统一 */
+          box-shadow: 0 4px 8px rgba(0, 112, 243, 0.15);
+          /* 移除translateY */
         }
 
         @media (max-width: 768px) {
@@ -357,6 +366,7 @@ export default function Home() {
 
           .hero-cta {
             justify-content: center;
+            flex-wrap: wrap; /* 移动端防止按钮溢出 */
           }
 
           .section-title {
@@ -365,6 +375,12 @@ export default function Home() {
 
           .cta-content h2 {
             font-size: 1.8rem;
+          }
+
+          /* 移动端按钮适配 */
+          .primary-btn, .secondary-btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
           }
         }
       `}</style>

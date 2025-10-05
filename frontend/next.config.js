@@ -2,6 +2,10 @@
 const path = require('path');
 
 const nextConfig = {
+    // 添加images配置
+    images: {
+        domains: ['images.unsplash.com', 'cdn.example.com'], // 可并列多个
+    },
     webpack: (config, { isServer }) => {
         if (!isServer) {
             // 其它 Node 核心模块依旧保持 fallback
@@ -11,6 +15,7 @@ const nextConfig = {
                 net: false,
                 tls: false,
             };
+
 
             // 添加 alias：将 React Native 的 AsyncStorage 指向我们写的 polyfill
             config.resolve.alias['@react-native-async-storage/async-storage'] = path.resolve(

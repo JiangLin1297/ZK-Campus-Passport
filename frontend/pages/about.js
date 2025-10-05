@@ -148,7 +148,7 @@ export default function About() {
                         无论您是学生、教育工作者还是技术爱好者，我们都期待与您交流
                     </p>
                     <a
-                        href="mailto:contact@zkcampuspassport.xyz"
+                        href="JiangLin1297@gmail.com"
                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-all duration-300"
                     >
                         发送邮件
