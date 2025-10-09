@@ -1,4 +1,4 @@
-﻿// frontend/pages/profile.js
+// frontend/pages/profile.js
 import { useEffect, useState } from "react";
 import { useAccount, useDisconnect } from 'wagmi';
 import Layout from "../components/Layout";

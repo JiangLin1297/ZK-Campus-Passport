@@ -50,8 +50,9 @@ export default function Events() {
     return (
         <Layout>
             {/* 头部横幅 */}
-            <section className="hero-section events-hero">
-                <div className="hero-content">
+            <section className="hero-section events-hero relative overflow-hidden bg-f8fafc">
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-50 rounded-l-full opacity-50 -z-10"></div>
+                <div className="hero-content relative z-10">
                     <h1 className="hero-title">
                         校园 <span className="highlight">赛事广场</span>
                     </h1>
@@ -185,227 +186,339 @@ export default function Events() {
 
             {/* 行动号召 */}
             <section className="cta-section">
-                <div className="cta-content">
-                    <h2>没有找到感兴趣的赛事？</h2>
-                    <p>创建自己的赛事活动，邀请同学参与</p>
-                    <div className="cta-buttons">
-                        <Link href="/organizer" className="primary-btn">
+                <div className="cta-content max-w-4xl mx-auto">
+                    <h2 className="cta-title text-2xl font-bold text-gray-800">没有找到感兴趣的赛事？</h2>
+                    <p className="cta-description text-lg text-gray-600 mt-4">创建自己的赛事活动，邀请同学参与</p>
+                    <div className="cta-buttons flex flex-col sm:flex-row gap-4 mt-6">
+                        <Link
+                            href="/organizer"
+                            className="px-6 py-3 rounded-lg font-medium text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                        >
                             发布赛事
                         </Link>
-                        <Link href="/docs#quickstart" className="secondary-btn">
+                        <Link
+                            href="/docs#quickstart"
+                            className="px-6 py-3 rounded-lg font-medium text-gray-700 bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300"
+                        >
                             了解如何参与
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* 页脚 */}
-            <footer className="footer">
-                <div className="footer-content">
-                    <div className="footer-logo">ZK-Campus Passport</div>
-                    <div className="footer-links">
-                        <Link href="/about">关于我们</Link>
-                        <Link href="/docs">使用文档</Link>
-                        <Link href="/contact">联系我们</Link>
+            {/* 底部导航栏 - 与Organizer页面保持一致 */}
+            <footer className="footer bg-gray-900 text-white py-12 mt-16">
+                <div className="footer-content max-w-6xl mx-auto px-6">
+                    <div className="footer-logo text-2xl font-bold mb-6">ZK-Campus Passport</div>
+                    <div className="footer-links grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                        <div>
+                            <h3 className="text-lg font-semibold mb-4 text-gray-300">快速链接</h3>
+                            <ul className="space-y-2">
+                                <li><Link href="/" className="hover:text-blue-400 transition">首页</Link></li>
+                                <li><Link href="/events" className="hover:text-blue-400 transition">赛事广场</Link></li>
+                                <li><Link href="/organizer" className="hover:text-blue-400 transition">发布赛事</Link></li>
+                                <li><Link href="/my-events" className="hover:text-blue-400 transition">我的赛事</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-4 text-gray-300">资源中心</h3>
+                            <ul className="space-y-2">
+                                <li><Link href="/docs" className="hover:text-blue-400 transition">使用文档</Link></li>
+                                <li><Link href="/faq" className="hover:text-blue-400 transition">常见问题</Link></li>
+                                <li><Link href="/api-docs" className="hover:text-blue-400 transition">API 参考</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-4 text-gray-300">关于我们</h3>
+                            <ul className="space-y-2">
+                                <li><Link href="/about" className="hover:text-blue-400 transition">项目介绍</Link></li>
+                                <li><Link href="/contact" className="hover:text-blue-400 transition">联系我们</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-4 text-gray-300">法律信息</h3>
+                            <ul className="space-y-2">
+                                <li><Link href="/terms" className="hover:text-blue-400 transition">服务条款</Link></li>
+                                <li><Link href="/privacy" className="hover:text-blue-400 transition">隐私政策</Link></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div className="footer-copyright">
+                    <div className="footer-copyright text-gray-400 text-sm pt-6 border-t border-gray-800">
                         © 2025 ZK-Campus Passport. 保留所有权利。
                     </div>
                 </div>
             </footer>
 
             <style jsx>{`
-        .events-hero {
-          margin-top: 2rem;
-        }
-        
-        .events-hero-image {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-        }
-        
-        .filters-section {
-          background: white;
-          border-radius: 1rem;
-          padding: 1.5rem;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .filters-container {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-        
-        .filters-title {
-          font-size: 1.2rem;
-          font-weight: 600;
-          color: #1a1a2e;
-        }
-        
-        .filters-buttons {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.8rem;
-        }
-        
-        .filter-btn {
-          padding: 0.5rem 1.2rem;
-          border: 1px solid #ddd;
-          border-radius: 20px;
-          background: white;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          font-weight: 500;
-        }
-        
-        .filter-btn:hover {
-          border-color: #0070f3;
-          color: #0070f3;
-        }
-        
-        .filter-btn.active {
-          background-color: #0070f3;
-          color: white;
-          border-color: #0070f3;
-        }
-        
-        .loading-state {
-          text-align: center;
-          padding: 5rem 1rem;
-        }
-        
-        .loading-spinner {
-          width: 40px;
-          height: 40px;
-          margin: 0 auto 1rem;
-          border: 4px solid #f0f0f0;
-          border-top: 4px solid #0070f3;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        
-        .no-events {
-          text-align: center;
-          padding: 5rem 1rem;
-          background: white;
-          border-radius: 1rem;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .no-events p {
-          color: #666;
-          margin-bottom: 1.5rem;
-          font-size: 1.1rem;
-        }
-        
-        .events-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 2rem;
-        }
-        
-        .event-card {
-          background: white;
-          border-radius: 1rem;
-          overflow: hidden;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .event-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-        }
-        
-        .event-image {
-          width: 100%;
-          height: 180px;
-          overflow: hidden;
-        }
-        
-        .event-info {
-          padding: 1.5rem;
-        }
-        
-        .event-type {
-          display: inline-block;
-          padding: 0.3rem 0.8rem;
-          background: #f0f7ff;
-          color: #0070f3;
-          border-radius: 4px;
-          font-size: 0.8rem;
-          font-weight: 600;
-          margin-bottom: 0.8rem;
-        }
-        
-        .event-title {
-          font-size: 1.3rem;
-          font-weight: 600;
-          color: #1a1a2e;
-          margin-bottom: 1rem;
-          line-height: 1.3;
-        }
-        
-        .event-details {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-          margin-bottom: 1.2rem;
-        }
-        
-        .event-detail {
-          display: flex;
-          align-items: center;
-          font-size: 0.9rem;
-          color: #666;
-        }
-        
-        .detail-icon {
-          margin-right: 0.5rem;
-          min-width: 20px;
-        }
-        
-        .event-status {
-          display: inline-block;
-          padding: 0.3rem 0.8rem;
-          border-radius: 4px;
-          font-size: 0.85rem;
-          font-weight: 600;
-          margin-bottom: 1.2rem;
-        }
-        
-        .status-open {
-          background-color: #e6f7ff;
-          color: #1890ff;
-        }
-        
-        .status-upcoming {
-          background-color: #fff7e6;
-          color: #fa8c16;
-        }
-        
-        .status-active {
-          background-color: #f6ffed;
-          color: #52c41a;
-        }
-        
-        .status-ended {
-          background-color: #fff2f0;
-          color: #f5222d;
-        }
-        
-        .event-actions {
-          margin-top: auto;
-        }
-      `}</style>
+                .hero-section {
+                    display: flex;
+                    align-items: center;
+                    padding: 4rem 2rem;
+                    margin-bottom: 2rem;
+                    background-color: #f8fafc;
+                }
+                
+                .hero-content {
+                    flex: 1;
+                    padding: 2rem;
+                }
+                
+                .hero-title {
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                    color: #1a1a2e;
+                    font-weight: 700;
+                }
+                
+                .hero-subtitle {
+                    font-size: 1.2rem;
+                    margin-bottom: 1rem;
+                    color: #4a4a68;
+                }
+                
+                .hero-description {
+                    font-size: 1rem;
+                    color: #666;
+                    max-width: 600px;
+                    line-height: 1.6;
+                }
+                
+                .highlight {
+                    color: #0070f3;
+                    text-decoration: underline;
+                    text-decoration-thickness: 2px;
+                    text-underline-offset: 4px;
+                }
+                
+                .hero-image {
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                }
+                
+                .events-hero-image {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                }
+                
+                .filters-section {
+                    background: white;
+                    border-radius: 1rem;
+                    padding: 1.5rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                }
+                
+                .filters-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+                
+                .filters-title {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: #1a1a2e;
+                }
+                
+                .filters-buttons {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.8rem;
+                }
+                
+                .filter-btn {
+                    padding: 0.5rem 1.2rem;
+                    border: 1px solid #ddd;
+                    border-radius: 20px;
+                    background: white;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    font-weight: 500;
+                }
+                
+                .filter-btn:hover {
+                    border-color: #0070f3;
+                    color: #0070f3;
+                }
+                
+                .filter-btn.active {
+                    background-color: #0070f3;
+                    color: white;
+                    border-color: #0070f3;
+                }
+                
+                .loading-state {
+                    text-align: center;
+                    padding: 5rem 1rem;
+                }
+                
+                .loading-spinner {
+                    width: 40px;
+                    height: 40px;
+                    margin: 0 auto 1rem;
+                    border: 4px solid #f0f0f0;
+                    border-top: 4px solid #0070f3;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                
+                .no-events {
+                    text-align: center;
+                    padding: 5rem 1rem;
+                    background: white;
+                    border-radius: 1rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                }
+                
+                .no-events p {
+                    color: #666;
+                    margin-bottom: 1.5rem;
+                    font-size: 1.1rem;
+                }
+                
+                .events-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 2rem;
+                }
+                
+                .event-card {
+                    background: white;
+                    border-radius: 1rem;
+                    overflow: hidden;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+                
+                .event-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+                }
+                
+                .event-image {
+                    width: 100%;
+                    height: 180px;
+                    overflow: hidden;
+                }
+                
+                .event-info {
+                    padding: 1.5rem;
+                }
+                
+                .event-type {
+                    display: inline-block;
+                    padding: 0.3rem 0.8rem;
+                    background: #f0f7ff;
+                    color: #0070f3;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    margin-bottom: 0.8rem;
+                }
+                
+                .event-title {
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    color: #1a1a2e;
+                    margin-bottom: 1rem;
+                    line-height: 1.3;
+                }
+                
+                .event-details {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    margin-bottom: 1.2rem;
+                }
+                
+                .event-detail {
+                    display: flex;
+                    align-items: center;
+                    font-size: 0.9rem;
+                    color: #666;
+                }
+                
+                .detail-icon {
+                    margin-right: 0.5rem;
+                    min-width: 20px;
+                }
+                
+                .event-status {
+                    display: inline-block;
+                    padding: 0.3rem 0.8rem;
+                    border-radius: 4px;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    margin-bottom: 1.2rem;
+                }
+                
+                .status-open {
+                    background-color: #e6f7ff;
+                    color: #1890ff;
+                }
+                
+                .status-upcoming {
+                    background-color: #fff7e6;
+                    color: #fa8c16;
+                }
+                
+                .status-active {
+                    background-color: #f6ffed;
+                    color: #52c41a;
+                }
+                
+                .status-ended {
+                    background-color: #fff2f0;
+                    color: #f5222d;
+                }
+                
+                .event-actions {
+                    margin-top: auto;
+                }
+
+                .footer-links a {
+                    color: #ddd;
+                    text-decoration: none;
+                    transition: color 0.2s ease;
+                }
+                .footer-links a:hover {
+                    color: #0070f3;
+                }
+
+                .cta-section {
+                    background: white;
+                    border-radius: 1rem;
+                    padding: 3rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                    margin: 2rem auto;
+                }
+
+                .cta-title {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    color: #1a1a2e;
+                    margin-bottom: 1rem;
+                }
+
+                .cta-description {
+                    font-size: 1.1rem;
+                    color: #666;
+                    margin-bottom: 1.5rem;
+                }
+
+                .cta-buttons {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                }
+            `}</style>
         </Layout>
     );
 }

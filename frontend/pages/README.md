@@ -79,7 +79,7 @@ ZK-Campus Passport 旨在通过区块链与零知识证明技术，构建一套�
 
 ## 如何参与
 
-- 对项目有建议或需求？欢迎提交 Issue 或参与 Discussion到：JiangLin1297@gmail.com
+- 对项目有建议或需求？欢迎提交 Issue 或参与 Discussion
 - 希望推动所在院校接入？请联系项目维护团队获取合作指南
 - 关注项目进展：star 本仓库，获取最新更新通知
 
