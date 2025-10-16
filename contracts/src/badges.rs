@@ -1,45 +1,48 @@
-//! 成就徽章系统
-//! 管理学生获得的各类校园成就（竞赛、志愿活动等）
-
-use std::collections::HashMap;
-use psy_std::storage::StorageMap;
+use psy_sdk::{contract, storage::StorageMap, types::Address};
 use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Badge {
-    pub badge_id: String,       // 徽章唯一标识
-    pub metadata_uri: String,   // 徽章元数据（描述、图标等）
-    pub issuer: String,         // 发行机构SDKey
-    pub issued_at: u64,         // 发行时间戳
+    pub id: String,       // 徽章唯一ID
+    pub event: String,    // 关联赛事/活动
+    pub issued_at: u64,   // 颁发时间（时间戳）
+    pub issuer: Address,  // 颁发机构地址
 }
 
-#[derive(Default, Serialize, Deserialize)]
-pub struct BadgeSystem {
-    // 存储：学生SDKey -> 徽章列表
-    student_badges: StorageMap<String, Vec<Badge>>,
-}
-
-impl BadgeSystem {
-    pub fn new() -> Self {
-        Self::default()
+contract! {
+    storage {
+        badges: StorageMap<(Address, String), Badge>,  // (学生地址, 徽章ID) -> 徽章信息
+        issuers: StorageMap<Address, bool>,            // 授权颁发机构
     }
 
-    // 发行徽章（仅授权机构可调用）
-    pub fn issue_badge(&mut self, student_sdkey: String, badge: Badge) -> bool {
-        let entry = self.student_badges.entry(student_sdkey).or_insert_with(Vec::new);
-        entry.push(badge);
-        true
+    // 初始化：设置默认颁发机构
+    init(default_issuer: Address) {
+        storage.issuers.insert(default_issuer, true);
     }
 
-    // 查询学生的所有徽章
-    pub fn get_student_badges(&self, student_sdkey: &str) -> Vec<Badge> {
-        self.student_badges.get(student_sdkey).cloned().unwrap_or_default()
+    // 授权新的颁发机构（仅合约拥有者）
+    pub fn add_issuer(&mut self, issuer: Address) {
+        assert!(self.env.caller() == self.env.owner(), "Only owner can add issuers");
+        storage.issuers.insert(issuer, true);
     }
 
-    // 验证徽章是否存在
-    pub fn has_badge(&self, student_sdkey: &str, badge_id: &str) -> bool {
-        self.student_badges
-            .get(student_sdkey)
-            .map_or(false, |badges| badges.iter().any(|b| b.badge_id == badge_id))
+    // 颁发徽章（仅授权机构）
+    pub fn issue_badge(&mut self, student: Address, badge: Badge) {
+        let caller = self.env.caller();
+        assert!(storage.issuers.get(&caller).unwrap_or(false), "Unauthorized issuer");
+        
+        // 存储徽章（学生地址+徽章ID作为键，避免重复）
+        storage.badges.insert((student, badge.id.clone()), badge.clone());
+        
+        // 发射事件
+        self.env.emit_event("BadgeIssued", (student, badge.id));
+    }
+
+    // 查询学生的徽章
+    pub fn get_student_badges(&self, student: Address) -> Vec<Badge> {
+        storage.badges.iter()
+            .filter(|((addr, _), _)| *addr == student)
+            .map(|(_, badge)| badge.clone())
+            .collect()
     }
 }

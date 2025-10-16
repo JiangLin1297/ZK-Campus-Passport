@@ -1,37 +1,42 @@
-//! 学生身份注册表
-//! 管理邮箱哈希与SDKey公钥的绑定关系
-
-use std::collections::HashMap;
-use psy_std::storage::StorageMap;
+use psy_sdk::{contract, storage::StorageMap, types::Address};
 use serde::{Serialize, Deserialize};
 
-#[derive(Default, Serialize, Deserialize)]
-pub struct IdentityRegistry {
-    // 存储：邮箱哈希 -> SDKey公钥
-    email_to_sdkey: StorageMap<String, String>,
+// 学生信息结构体（可序列化）
+#[derive(Serialize, Deserialize, Clone)]
+pub struct Student {
+    pub sdkey: String,  // 学生唯一标识
+    pub name: String,   // 可选：姓名（按需存储）
 }
 
-impl IdentityRegistry {
-    pub fn new() -> Self {
-        Self::default()
+// 链上存储：Address（钱包地址）-> Student
+contract! {
+    storage {
+        registry: StorageMap<Address, Student>,
+        authority: Address,  // 管理员地址（仅允许其注册学生）
     }
 
-    // 注册学生身份（仅授权机构可调用）
-    pub fn register_student(&mut self, email_hash: String, sdkey_pub: String) -> bool {
-        if self.email_to_sdkey.contains_key(&email_hash) {
-            return false; // 已注册
-        }
-        self.email_to_sdkey.insert(email_hash, sdkey_pub);
-        true
+    // 初始化合约（设置管理员）
+    init(authority: Address) {
+        storage.authority.set(authority);
     }
 
-    // 通过邮箱哈希查询SDKey公钥
-    pub fn get_sdkey(&self, email_hash: &str) -> Option<String> {
-        self.email_to_sdkey.get(email_hash).cloned()
+    // 仅管理员可注册学生
+    pub fn register_student(&mut self, student_addr: Address, sdkey: String, name: String) {
+        // 权限校验：仅管理员可调用
+        assert!(self.env.caller() == storage.authority.get().unwrap(), "Unauthorized");
+        
+        // 存储学生信息
+        storage.registry.insert(
+            student_addr,
+            Student { sdkey: sdkey.clone(), name }
+        );
+
+        // 发射事件（供前端监听）
+        self.env.emit_event("StudentRegistered", (student_addr, sdkey));
     }
 
-    // 检查SDKey是否已注册
-    pub fn is_registered(&self, sdkey_pub: &str) -> bool {
-        self.email_to_sdkey.values().any(|v| v == sdkey_pub)
+    // 查询学生信息（公开可读）
+    pub fn lookup_sdkey(&self, addr: Address) -> Option<String> {
+        storage.registry.get(&addr).map(|s| s.sdkey.clone())
     }
 }
