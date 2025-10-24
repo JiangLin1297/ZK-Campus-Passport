@@ -1,0 +1,26 @@
+{
+  "name": "zksol",
+  "version": "1.0.0",
+  "description": "本项目旨在开发一个基于零知识证明的校园GPA验证系统，使用 **Groth16 + Circom** 技术栈，实现隐私保护的学术成就认证。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "hardhat": "^3.0.8"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ethers": "^4.0.2",
+    "@openzeppelin/contracts": "^5.4.0",
+    "circomlib": "^2.0.5",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.15.0",
+    "snarkjs": "^0.7.5"
+  },
+  "type": "module"
+}

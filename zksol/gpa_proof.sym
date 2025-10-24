@@ -1,0 +1,12 @@
+1,5,0,main.gpa
+2,6,0,main.salt
+3,3,0,main.min_gpa
+4,4,0,main.max_gpa
+5,1,0,main.commitment
+6,2,0,main.valid
+7,9,0,main.gpa_minus_min
+8,10,0,main.max_minus_gpa
+9,7,0,main.range_check1
+10,8,0,main.range_check2
+11,11,0,main.constraint1
+12,12,0,main.constraint2
